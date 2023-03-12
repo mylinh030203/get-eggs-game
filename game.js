@@ -11,11 +11,10 @@ class game {
         this.canvas = document.createElement("canvas");
         this.context = this.canvas.getContext("2d");
         document.body.appendChild(this.canvas);
-
-        this.basket = new Basket(this, 33, 45);
-
         this.render();
+        this.basket = new Basket(this, 33, game_H - 75, 134, 150);
         this.start();
+        this.listenMouse();
     }
 
     loop(timestamp) {
@@ -29,7 +28,7 @@ class game {
     }
 
     update() {
-        console.log("Linh");
+        // console.log("Linh");
         this.basket.update();
     }
 
@@ -55,6 +54,25 @@ class game {
             game_W = this.canvas.width;
             game_H = this.canvas.height;
         }
+    }
+
+    listenMouse() {
+        document.addEventListener("mousedown", evt => {
+            var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
+            var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
+        })
+
+        document.addEventListener("mousemove", evt => {
+            var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
+            var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
+            this.basket.setxEnd(x);
+        })
+
+        document.addEventListener("mouseup", evt => {
+            var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
+            var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
+
+        })
     }
 
 }

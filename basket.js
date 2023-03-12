@@ -2,18 +2,43 @@ let basket_img = new Image();
 basket_img.src = "./assets/images/basket.png";
 
 class Basket {
-    constructor(game, x, y) {
+    constructor(game, x, y, width, height) {
         this.game = game;
         this.x = x;
         this.y = y;
-        this.speed = 10;
+        this.xEnd = this.x;
+        this.width = width;
+        this.height = height;
+        this.speed = 17;
     }
 
     update() {
-        this.x += this.speed;
+        if (this.xEnd > this.x) {
+            this.x += this.speed;
+            if (this.x > this.xEnd) {
+                this.x = this.xEnd;
+            }
+        } else {
+            this.x -= this.speed;
+            if (this.x < this.xEnd) {
+                this.x = this.xEnd;
+            }
+        }
+    }
+
+    setXY(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    setX(x) {
+        this.x = x;
+    }
+    setxEnd(xEnd) {
+        this.xEnd = xEnd;
     }
 
     draw() {
-        this.game.context.drawImage(basket_img, this.x, this.y, 134, 150);
+        this.game.context.drawImage(basket_img, this.x - this.width / 2, this.y - this.height / 2, this.width, this.height);
     }
 }
