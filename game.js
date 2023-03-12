@@ -1,5 +1,5 @@
 game_W = 0, game_H = 0;
-
+NumberOfChicky = 3;
 class game {
     constructor() {
         this.canvas = null;
@@ -13,6 +13,11 @@ class game {
         document.body.appendChild(this.canvas);
         this.render();
         this.basket = new Basket(this, 33, game_H - 75, 134, 150);
+        this.chickies = []
+        for (let i = 0; i < NumberOfChicky; i++) {
+            this.chickies[i] = new Chicky(this, Math.random() * game_W, 60, 100, 120, Math.ceil(Math.random() + 1));
+        }
+
         this.start();
         this.listenMouse();
     }
@@ -30,12 +35,16 @@ class game {
     update() {
         // console.log("Linh");
         this.basket.update();
+        for (let i = 0; i < NumberOfChicky; i++)
+            this.chickies[i].update();
     }
 
 
     draw() {
         this.clearScreen();
         this.basket.draw();
+        for (let i = 0; i < NumberOfChicky; i++)
+            this.chickies[i].draw();
     }
 
 
