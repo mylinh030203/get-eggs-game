@@ -7,10 +7,22 @@ class Chicky {
         this.width = width;
         this.height = height;
         this.speed = (this.indexImage == 1) ? 2 : -2;
+        this.wait = 0;
         this.init();
         this.indexImage = indexImage;
 
 
+    }
+
+    isWait() {
+        return (this.wait > 0);
+    }
+
+    randomWait() {
+        let recent = 0.1;
+        if (Math.random() * 100 < recent) {
+            this.wait = 180;
+        }
     }
 
     init() {
@@ -22,11 +34,17 @@ class Chicky {
     }
 
     update() {
-        this.x += this.speed;
-        if (this.x >= game_W || this.x <= 0) {
-            this.speed = -this.speed;
+        if (!this.isWait()) {
             this.x += this.speed;
-            this.indexImage = 3 - this.indexImage;
+            if (this.x >= game_W || this.x <= 0) {
+                this.speed = -this.speed;
+                this.x += this.speed;
+                this.indexImage = 3 - this.indexImage;
+            }
+            this.randomWait();
+        } else {
+            // de
+            this.wait--;
         }
 
     }
