@@ -42,9 +42,9 @@ class game {
 
     draw() {
         this.clearScreen();
-        this.basket.draw();
         for (let i = 0; i < NumberOfChicky; i++)
             this.chickies[i].draw();
+        this.basket.draw();
     }
 
 
