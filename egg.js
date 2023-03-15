@@ -34,6 +34,9 @@ class Egg {
 
 
     }
+    setVisible(visible) {
+        this.visible = visible;
+    }
 
     draw() {
         if (this.visible) {

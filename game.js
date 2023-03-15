@@ -4,6 +4,7 @@ class game {
     constructor() {
         this.canvas = null;
         this.context = null;
+        this.score = 0;
         this.init();
     }
 
@@ -35,16 +36,42 @@ class game {
     update() {
         // console.log("Linh");
         this.basket.update();
-        for (let i = 0; i < NumberOfChicky; i++)
+        for (let i = 0; i < NumberOfChicky; i++) {
             this.chickies[i].update();
+        }
+        for (let i = 0; i < NumberOfChicky; i++) {
+            for (let j = 0; j < this.chickies[i].eggs.length; j++) {
+                let egg = this.chickies[i].eggs[j];
+                let x_leftBasket = this.basket.x - this.basket.width / 2;
+                let x_rightBasket = this.basket.x + this.basket.width / 2;
+                let y_topBasket = this.basket.y - egg.height / 4;
+                let y_botBasket = this.basket.y + this.basket.height / 2;
+
+                let x_leftEgg = egg.x - egg.width / 2;
+                let x_rightEgg = egg.x + egg.width / 2;
+                let y_topEgg = egg.y - egg.height / 2;
+                let y_botEgg = egg.y + egg.height / 2;
+                if (egg.visible) {
+                    if (x_leftEgg >= x_leftBasket && x_rightEgg <= x_rightBasket
+                        && y_topEgg >= y_topBasket && y_botEgg <= y_botBasket) {
+                        console.log("hellofdbdg");
+                        egg.setVisible(false);
+                        this.score++;
+                        console.log(this.score);
+                    }
+                }
+            }
+        }
+
     }
 
 
     draw() {
         this.clearScreen();
+        this.basket.draw();
         for (let i = 0; i < NumberOfChicky; i++)
             this.chickies[i].draw();
-        this.basket.draw();
+
     }
 
 
