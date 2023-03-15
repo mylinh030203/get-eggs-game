@@ -13,6 +13,7 @@ class Egg {
         this.height = height;
         this.speed = 2;
         this.wait = 0;
+        this.breakEgg = false;
         this.visible = true;
     }
     isWait() {
@@ -24,9 +25,13 @@ class Egg {
             if (this.y >= game_H - this.height / 2) {
                 this.speed = 0;
                 this.wait = 100;
+
             }
         } else {
             this.wait--;
+            if (this.wait == 1) {
+                this.breakEgg = true;
+            }
             if (this.wait == 0) {
                 this.visible = false;
             }

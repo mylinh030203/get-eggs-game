@@ -5,6 +5,7 @@ class game {
         this.canvas = null;
         this.context = null;
         this.score = 0;
+        this.heart = 5;
         this.init();
     }
 
@@ -58,17 +59,46 @@ class game {
                         egg.setVisible(false);
                         this.score++;
                         console.log(this.score);
+
+                    }
+                    if (egg.breakEgg) {
+                        this.heart--;
+                        if (this.heart == 0)
+                            alert("Số điểm của bạn là " + this.score);
+
                     }
                 }
             }
-        }
 
+        }
+    }
+
+    drawScore() {
+        var text = this.score;
+        var font = "bold 30px Arial";
+        this.context.font = font;
+        this.context.fillStyle = "white";
+
+        var y = this.basket.y + this.basket.height / 2.4;
+        this.context.fillText(text, this.basket.x, y);
+    }
+    drawHeart() {
+
+        var text = this.heart + "x ❤";
+        var font = "bold 30px Arial";
+        this.context.font = font;
+        this.context.fillStyle = "red";
+
+        var y = this.basket.y + this.basket.height / 2.4;
+        this.context.fillText(text, game_W - this.basket.width / 1.5, game_H - this.basket.height / 4);
     }
 
 
     draw() {
         this.clearScreen();
+        this.drawHeart();
         this.basket.draw();
+        this.drawScore();
         for (let i = 0; i < NumberOfChicky; i++)
             this.chickies[i].draw();
 
