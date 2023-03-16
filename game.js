@@ -1,6 +1,9 @@
 game_W = 0, game_H = 0;
 NumberOfChicky = 3;
-
+let bgImage = new Image();
+bgImage.src = "assets/images/background1.png";
+let ropeImage = new Image();
+ropeImage.src = "assets/images/rope.png";
 let phone_img = new Image();
 phone_img.src = "assets/images/rotate.png";
 class game {
@@ -138,9 +141,13 @@ class game {
             this.context.drawImage(phone_img, x, y, size, size);
         }
     }
+    drawRope() {
+        this.context.drawImage(ropeImage, 0, this.chickies[0].height, game_W, 20);
+    }
 
     draw() {
         this.clearScreen();
+        this.drawRope()
         this.drawHeart();
         this.drawInfoPlayer();
         this.basket.draw();
@@ -153,9 +160,9 @@ class game {
 
     clearScreen() {
         this.context.clearRect(0, 0, game_W, game_H);
-        this.context.fillStyle = "Black";
-
+        this.context.fillStyle = "white";
         this.context.fillRect(0, 0, game_W, game_H);
+        this.context.drawImage(bgImage, 0, 0, game_W, game_H);
     }
 
 
