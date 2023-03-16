@@ -27,6 +27,8 @@ class game {
     loop(timestamp) {
         if (this.heart <= 0)
             return;
+        Util.calculateFPS(timestamp);
+        console.log(Util.fps);
         this.update();
         this.draw();
         requestAnimationFrame((timestamp) => this.loop(timestamp));
@@ -55,8 +57,8 @@ class game {
                 let y_topEgg = egg.y - egg.height / 2;
                 let y_botEgg = egg.y + egg.height / 2;
                 if (egg.visible) {
-                    if (x_leftEgg >= x_leftBasket && x_rightEgg <= x_rightBasket
-                        && y_topEgg >= y_topBasket && y_botEgg <= y_botBasket && !egg.isWait()) {
+                    if (x_leftEgg >= x_leftBasket && x_rightEgg <= x_rightBasket &&
+                        y_topEgg >= y_topBasket && y_botEgg <= y_botBasket && !egg.isWait()) {
                         console.log("hellofdbdg");
                         egg.setVisible(false);
                         this.score++;
