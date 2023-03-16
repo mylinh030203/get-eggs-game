@@ -9,8 +9,6 @@ class Player {
         }
         if (currentPlayer) {
             this.player = currentPlayer;
-            if (this.player.score <= 0)
-                this.player.score = 1;
         }
         Util.setItem('player-get-eggs', this.player);
     }

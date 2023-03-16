@@ -177,15 +177,33 @@
                     alert("Vui lòng nhập đầy đủ thông tin");
                     return;
                 }
+                // Util.findPlayerByPhoneNumberAndGameId(phonenumber, 'get-eggs').then((respone) => {
+                //     if (respone === "")
+                //         window.location.href = "";
+                // });
                 Util.findPlayerByPhoneNumberAndGameId(phonenumber, 'get-eggs').then((respone) => {
-                    if (respone === "")
-                        window.location.href = "";
+                    if (respone !== "") {
+                        Util.setItem("player-get-eggs", respone);
+                        console.log(Util.getItem("player-get-eggs"));
+                    }
                 });
-                Util.findPlayerByPhoneNumberAndGameId(phonenumber, 'get-eggs').then((respone) => {
-                    Util.setItem("player-get-eggs", respone);
-                    console.log(Util.getItem("player-get-eggs"));
-                    window.location.href = "../";
+                Util.findPlayerByPhoneNumber(phonenumber).then((respone) => {
+                    console.log(respone);
+                    if (respone.check == true) {
+                        console.log("Đã tồn tại người dùng");
+                        Util.postPlayerScore(respone.data.namePlayer, 'get-eggs', respone.data.school, phonenumber, 0);
+                        Util.setItem("player-get-eggs", {
+                            "namePlayer": respone.data.namePlayer,
+                            "school": respone.data.school,
+                            "phone": phonenumber,
+                            "score": 0,
+                        });
+                        window.location.href = "../";
+                    } else {
+                        alert(respone.message);
+                    }
                 });
+
 
 
             }

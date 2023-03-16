@@ -8,7 +8,7 @@ class game {
         this.canvas = null;
         this.context = null;
         this.score = 0;
-        this.heart = 5;
+        this.heart = 1;
         this.init();
     }
 
