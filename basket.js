@@ -9,10 +9,11 @@ class Basket {
         this.xEnd = this.x;
         this.width = width;
         this.height = height;
-        this.speed = 17;
+        this.speed = Util.fps / 2.5;
     }
 
     update() {
+        this.speed = Util.fps / 2;
         if (this.xEnd > this.x) {
             this.x += this.speed;
             if (this.x > this.xEnd) {

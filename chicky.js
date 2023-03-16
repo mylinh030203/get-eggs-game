@@ -1,4 +1,3 @@
-
 class Chicky {
     constructor(game, x, y, width, height, indexImage) {
         this.game = game;
@@ -18,9 +17,9 @@ class Chicky {
     }
 
     randomWait() {
-        let recent = 0.1;
+        let recent = 0.1 * (1 + Util.systemNumber * 3)
         if (Math.random() * 100 < recent) {
-            this.wait = 180;
+            this.wait = 3 * Util.fps;
         }
     }
 
@@ -36,7 +35,7 @@ class Chicky {
 
     update() {
         if (!this.isWait()) {
-            this.x += this.speed;
+            this.x += (this.speed * (1 + Util.systemNumber * 3));
             if (this.x >= game_W || this.x <= 0) {
                 this.speed = -this.speed;
                 this.x += this.speed;

@@ -20,6 +20,10 @@ class game {
             this.chickies[i] = new Chicky(this, Math.random() * game_W, 60, 100, 120, Math.ceil(Math.random() + 1));
         }
 
+        let currentPlayer = Player.getCurrentPlayer();
+        this.player = new Player(currentPlayer);
+        console.log("player", this.player);
+
         this.start();
         this.listenMouse();
     }
@@ -28,7 +32,6 @@ class game {
         if (this.heart <= 0)
             return;
         Util.calculateFPS(timestamp);
-        console.log(Util.fps);
         this.update();
         this.draw();
         requestAnimationFrame((timestamp) => this.loop(timestamp));
@@ -59,15 +62,26 @@ class game {
                 if (egg.visible) {
                     if (x_leftEgg >= x_leftBasket && x_rightEgg <= x_rightBasket &&
                         y_topEgg >= y_topBasket && y_botEgg <= y_botBasket && !egg.isWait()) {
-                        console.log("hellofdbdg");
-                        egg.setVisible(false);
                         this.score++;
+                        Util.calSystemNumber(this.score);
+                        console.log("SystemNumber", Util.systemNumber);
+                        egg.setVisible(false);
+
                         console.log(this.score);
                     }
                     if (egg.breakEgg) {
                         this.heart--;
-                        if (this.heart == 0)
-                            alert("Số điểm của bạn là " + this.score);
+                        if (this.heart == 0) {
+                            let phoneNumber = this.player.getPhonenumber();
+                            Util.postPlayerScore(this.player.getName(), 'get-eggs', this.player.getSchool(), this.player.getPhonenumber(), this.score);
+                            Util.findPlayerByPhoneNumberAndGameId(phoneNumber, 'get-eggs').then((respone) => {
+                                Util.setItem("player-get-eggs", respone);
+                                console.log(Util.getItem("player-get-eggs"));
+                            })
+                            alert("Số điểm của bạn là " + this.score + "\nĐiểm cao nhất của bạn là: " + (this.player.getScore() > this.score ? this.player.getScore() : this.score));
+                            window.location.reload();
+                        }
+
 
                     }
                 }
@@ -77,6 +91,7 @@ class game {
     }
 
     drawScore() {
+        this.context.textAlign = "center";
         var text = this.score;
         var font = "bold 30px Arial";
         this.context.font = font;
@@ -85,8 +100,20 @@ class game {
         var y = this.basket.y + this.basket.height / 2.4;
         this.context.fillText(text, this.basket.x, y);
     }
-    drawHeart() {
 
+    drawInfoPlayer() {
+        this.context.textAlign = "left";
+        var text = "Xin chào " + this.player.getName();
+        var text2 = "Điểm cao nhất của bạn là: " + this.player.getScore();
+        var font = "bold 15px Arial";
+        this.context.font = font;
+        this.context.fillStyle = "red";
+        this.context.fillText(text, this.basket.width / 2, this.basket.width / 4);
+        this.context.fillText(text2, this.basket.width / 2, this.basket.width / 4 + 30);
+    }
+
+    drawHeart() {
+        this.context.textAlign = "center";
         var text = this.heart + "x ❤";
         var font = "bold 30px Arial";
         this.context.font = font;
@@ -95,11 +122,10 @@ class game {
         var y = this.basket.y + this.basket.height / 2.4;
         this.context.fillText(text, game_W - this.basket.width / 1.5, game_H - this.basket.height / 4);
     }
-
-
     draw() {
         this.clearScreen();
         this.drawHeart();
+        this.drawInfoPlayer();
         this.basket.draw();
         this.drawScore();
         for (let i = 0; i < NumberOfChicky; i++)
@@ -111,7 +137,7 @@ class game {
     clearScreen() {
         this.context.clearRect(0, 0, game_W, game_H);
         this.context.fillStyle = "Black";
-        this.context.textAlign = "center";
+
         this.context.fillRect(0, 0, game_W, game_H);
     }
 

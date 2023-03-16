@@ -11,7 +11,7 @@ class Egg {
         this.xEnd = this.x;
         this.width = width;
         this.height = height;
-        this.speed = 2;
+        this.speed = Util.fps / 20;
         this.wait = 0;
         this.breakEgg = false;
         this.visible = true;
@@ -20,15 +20,20 @@ class Egg {
         return (this.wait > 0);
     }
     update() {
-        this.y += this.speed;
+        if (!this.visible)
+            return;
+        if (this.speed != 0)
+            this.speed = Util.fps / 20;
+        this.y += (this.speed * (1 + Util.systemNumber * 1));
         if (!this.isWait()) {
             if (this.y >= game_H - this.height / 2) {
                 this.speed = 0;
-                this.wait = 100;
+                this.wait = 2 * Util.fps;
 
             }
         } else {
             this.wait--;
+            console.log("wait", this.wait, this.visible);
             if (this.wait == 1) {
                 this.breakEgg = true;
             }
