@@ -1,6 +1,7 @@
 game_W = 0, game_H = 0;
 NumberOfChicky = 3;
-
+let bgImage = new Image();
+bgImage.src = "assets/images/background.png";
 let phone_img = new Image();
 phone_img.src = "assets/images/rotate.png";
 class game {
@@ -153,9 +154,9 @@ class game {
 
     clearScreen() {
         this.context.clearRect(0, 0, game_W, game_H);
-        this.context.fillStyle = "Black";
-
+        this.context.fillStyle = "lightblue";
         this.context.fillRect(0, 0, game_W, game_H);
+        this.context.drawImage(bgImage, 0, 0, game_W, game_H);
     }
 
 
