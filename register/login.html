@@ -181,26 +181,29 @@
                 //     if (respone === "")
                 //         window.location.href = "";
                 // });
-                Util.findPlayerByPhoneNumberAndGameId(phonenumber, 'get-eggs').then((respone) => {
+                let nameGame = 'get-eggs';
+                Util.findPlayerByPhoneNumberAndGameId(phonenumber, nameGame).then((respone) => {
                     if (respone !== "") {
-                        Util.setItem("player-get-eggs", respone);
-                        console.log(Util.getItem("player-get-eggs"));
-                    }
-                });
-                Util.findPlayerByPhoneNumber(phonenumber).then((respone) => {
-                    console.log(respone);
-                    if (respone.check == true) {
-                        console.log("Đã tồn tại người dùng");
-                        Util.postPlayerScore(respone.data.namePlayer, 'get-eggs', respone.data.school, phonenumber, 0);
-                        Util.setItem("player-get-eggs", {
-                            "namePlayer": respone.data.namePlayer,
-                            "school": respone.data.school,
-                            "phone": phonenumber,
-                            "score": 0,
-                        });
+                        Util.setItem("player-" + nameGame, respone);
+                        console.log(Util.getItem("player-" + nameGame));
                         window.location.href = "../";
                     } else {
-                        alert(respone.message);
+                        Util.findPlayerByPhoneNumber(phonenumber).then((respone) => {
+                            console.log(respone);
+                            if (respone.check == true) {
+                                console.log("Đã tồn tại người dùng");
+                                Util.postPlayerScore(respone.data.namePlayer, nameGame, respone.data.school, phonenumber, 0);
+                                Util.setItem("player-" + nameGame, {
+                                    "namePlayer": respone.data.namePlayer,
+                                    "school": respone.data.school,
+                                    "phone": phonenumber,
+                                    "score": 3,
+                                });
+                                // window.location.href = "../b";
+                            } else {
+                                alert(respone.message);
+                            }
+                        });
                     }
                 });
 
