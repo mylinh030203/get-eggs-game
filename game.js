@@ -11,8 +11,9 @@ class game {
         this.canvas = null;
         this.context = null;
         this.score = 0;
-        this.heart = 1;
+        this.heart = 5;
         this.init();
+        this.listenMouse();
     }
 
     init() {
@@ -29,6 +30,7 @@ class game {
         let currentPlayer = Player.getCurrentPlayer();
         this.player = new Player(currentPlayer);
         console.log("player", this.player);
+        this.buttonManager = new ButtonManager(this, 100, this.player);
 
         this.start();
         this.listenMouse();
@@ -152,6 +154,7 @@ class game {
         this.drawInfoPlayer();
         this.basket.draw();
         this.drawScore();
+        this.buttonManager.draw();
         for (let i = 0; i < NumberOfChicky; i++)
             this.chickies[i].draw();
         this.drawPhone();
@@ -179,6 +182,7 @@ class game {
         document.addEventListener("mousedown", evt => {
             var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
             var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
+            this.buttonManager.isClick(x, y);
         })
 
         document.addEventListener("mousemove", evt => {
