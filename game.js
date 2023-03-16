@@ -1,5 +1,8 @@
 game_W = 0, game_H = 0;
 NumberOfChicky = 3;
+
+let phone_img = new Image();
+phone_img.src = "assets/images/rotate.png";
 class game {
     constructor() {
         this.canvas = null;
@@ -29,11 +32,14 @@ class game {
     }
 
     loop(timestamp) {
-        if (this.heart <= 0)
-            return;
-        Util.calculateFPS(timestamp);
-        this.update();
-        this.draw();
+        this.render();
+        if (this.heart <= 0 || game_W < 1.5 * game_H) {
+            this.drawPhone();
+        } else {
+            Util.calculateFPS(timestamp);
+            this.update();
+            this.draw();
+        }
         requestAnimationFrame((timestamp) => this.loop(timestamp));
     }
 
@@ -122,6 +128,17 @@ class game {
         var y = this.basket.y + this.basket.height / 2.4;
         this.context.fillText(text, game_W - this.basket.width / 1.5, game_H - this.basket.height / 4);
     }
+
+    drawPhone() {
+        if (game_W / game_H < 1.3) {
+            this.clearScreen();
+            let size = Math.min(game_W, game_H);
+            let x = (game_W - size) / 2;
+            let y = (game_H - size) / 2;
+            this.context.drawImage(phone_img, x, y, size, size);
+        }
+    }
+
     draw() {
         this.clearScreen();
         this.drawHeart();
@@ -130,7 +147,7 @@ class game {
         this.drawScore();
         for (let i = 0; i < NumberOfChicky; i++)
             this.chickies[i].draw();
-
+        this.drawPhone();
     }
 
 
