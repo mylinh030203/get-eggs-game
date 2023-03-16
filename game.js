@@ -1,7 +1,7 @@
 game_W = 0, game_H = 0;
 NumberOfChicky = 3;
 let bgImage = new Image();
-bgImage.src = "assets/images/backgroud.png";
+bgImage.src = "assets/images/background1.png";
 let phone_img = new Image();
 phone_img.src = "assets/images/rotate.png";
 class game {
