@@ -17,7 +17,7 @@ class Chicky {
     }
 
     randomWait() {
-        let recent = 0.1 * (1 + Util.systemNumber * 3)
+        let recent = 0.1 * (1 + Util.systemNumber * 3);
         if (Math.random() * 100 < recent) {
             this.wait = 3 * Util.fps;
         }
