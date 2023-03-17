@@ -214,7 +214,7 @@ class game {
             }
         });
 
-        document.addEventListener("keyup", evt => {
+        document.addEventListener("keydown", evt => {
             // console.log(evt.keyCode);
             if (evt.keyCode == 37) {
                 this.basket.moveLeft = false;
