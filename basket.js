@@ -18,7 +18,7 @@ class Basket {
 
 
         if (this.moveLeft || this.moveRight) {
-            this.speed /= 2;
+            this.speed /= 6;
             if (this.moveLeft) {
                 this.x -= this.speed;
                 if (this.x < 0) {
