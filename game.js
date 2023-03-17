@@ -30,6 +30,10 @@ class game {
         let currentPlayer = Player.getCurrentPlayer();
         this.player = new Player(currentPlayer);
         console.log("player", this.player);
+        Util.findPlayerByPhoneNumberAndGameId(this.player.getPhonenumber(), 'get-eggs').then((respone) => {
+            Util.setItem("player-get-eggs", respone);
+            console.log(Util.getItem("player-get-eggs"));
+        })
         this.buttonManager = new ButtonManager(this, 100, this.player);
 
         this.start();
@@ -88,14 +92,11 @@ class game {
                                 Util.findPlayerByPhoneNumberAndGameId(phoneNumber, 'get-eggs').then((respone) => {
                                     Util.setItem("player-get-eggs", respone);
                                     console.log(Util.getItem("player-get-eggs"));
+                                    alert("Số điểm của bạn là " + this.score + "\nĐiểm cao nhất của bạn là: " + (this.player.getScore() > this.score ? this.player.getScore() : this.score));
+                                    window.location.href = "";
                                 })
                             })
-
-                            alert("Số điểm của bạn là " + this.score + "\nĐiểm cao nhất của bạn là: " + (this.player.getScore() > this.score ? this.player.getScore() : this.score));
-                            window.location.reload();
                         }
-
-
                     }
                 }
             }
