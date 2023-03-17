@@ -84,11 +84,13 @@ class game {
                         this.heart--;
                         if (this.heart == 0) {
                             let phoneNumber = this.player.getPhonenumber();
-                            Util.postPlayerScore(this.player.getName(), 'get-eggs', this.player.getSchool(), this.player.getPhonenumber(), this.score);
-                            Util.findPlayerByPhoneNumberAndGameId(phoneNumber, 'get-eggs').then((respone) => {
-                                Util.setItem("player-get-eggs", respone);
-                                console.log(Util.getItem("player-get-eggs"));
+                            Util.postPlayerScore(this.player.getName(), 'get-eggs', this.player.getSchool(), this.player.getPhonenumber(), this.score).then(res => {
+                                Util.findPlayerByPhoneNumberAndGameId(phoneNumber, 'get-eggs').then((respone) => {
+                                    Util.setItem("player-get-eggs", respone);
+                                    console.log(Util.getItem("player-get-eggs"));
+                                })
                             })
+
                             alert("Số điểm của bạn là " + this.score + "\nĐiểm cao nhất của bạn là: " + (this.player.getScore() > this.score ? this.player.getScore() : this.score));
                             window.location.reload();
                         }
