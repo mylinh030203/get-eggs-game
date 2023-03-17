@@ -58,6 +58,7 @@ class game {
 
     update() {
         // console.log("Linh");
+        console.log(Util.fps);
         this.basket.update();
         for (let i = 0; i < NumberOfChicky; i++) {
             this.chickies[i].update();
