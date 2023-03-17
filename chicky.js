@@ -30,7 +30,6 @@ class Chicky {
         this.chicky_imgs[2] = new Image();
         this.chicky_imgs[2].src = "./assets/images/chicky/2.png";
         this.eggs = [];
-
     }
 
     update() {
@@ -50,7 +49,7 @@ class Chicky {
             }
         }
         for (let i = 0; i < this.eggs.length; i++)
-            this.eggs[i].update()
+            this.eggs[i].update();
 
     }
     addEgg(x, y) {

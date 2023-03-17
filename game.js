@@ -29,10 +29,10 @@ class game {
 
         let currentPlayer = Player.getCurrentPlayer();
         this.player = new Player(currentPlayer);
-        console.log("player", this.player);
+        // console.log("player", this.player);
         Util.findPlayerByPhoneNumberAndGameId(this.player.getPhonenumber(), 'get-eggs').then((respone) => {
             Util.setItem("player-get-eggs", respone);
-            console.log(Util.getItem("player-get-eggs"));
+            // console.log(Util.getItem("player-get-eggs"));
         })
         this.buttonManager = new ButtonManager(this, 100, this.player);
 
@@ -79,10 +79,10 @@ class game {
                         y_topEgg >= y_topBasket && y_botEgg <= y_botBasket && !egg.isWait()) {
                         this.score++;
                         Util.calSystemNumber(this.score);
-                        console.log("SystemNumber", Util.systemNumber);
+                        // console.log("SystemNumber", Util.systemNumber);
                         egg.setVisible(false);
 
-                        console.log(this.score);
+                        // console.log(this.score);
                     }
                     if (egg.breakEgg) {
                         this.heart--;
@@ -91,7 +91,7 @@ class game {
                             Util.postPlayerScore(this.player.getName(), 'get-eggs', this.player.getSchool(), this.player.getPhonenumber(), this.score).then(res => {
                                 Util.findPlayerByPhoneNumberAndGameId(phoneNumber, 'get-eggs').then((respone) => {
                                     Util.setItem("player-get-eggs", respone);
-                                    console.log(Util.getItem("player-get-eggs"));
+                                    // console.log(Util.getItem("player-get-eggs"));
                                     alert("Số điểm của bạn là " + this.score + "\nĐiểm cao nhất của bạn là: " + (this.player.getScore() > this.score ? this.player.getScore() : this.score));
                                     window.location.href = "";
                                 })
@@ -192,11 +192,36 @@ class game {
             var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
             var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
             this.basket.setxEnd(x);
+            this.basket.moveLeft = this.basket.moveRight = false;
         })
 
         document.addEventListener("mouseup", evt => {
             var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
             var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
+        })
+
+        document.addEventListener("keydown", evt => {
+            //space
+            // console.log(evt.keyCode);
+            if (evt.keyCode == 37) {
+                this.basket.moveLeft = true;
+                this.basket.moveRight = false;
+            }
+            if (evt.keyCode == 39) {
+                this.basket.moveRight = true;
+                this.basket.moveLeft = false;
+            }
+        });
+
+        document.addEventListener("keyup", evt => {
+            // console.log(evt.keyCode);
+            if (evt.keyCode == 37) {
+                this.basket.moveLeft = false;
+            }
+            if (evt.keyCode == 39) {
+                this.basket.moveRight = false;
+            }
+            this.basket.setxEnd(this.basket.x);
 
         })
     }

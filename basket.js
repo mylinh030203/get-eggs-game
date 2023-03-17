@@ -10,19 +10,38 @@ class Basket {
         this.width = width;
         this.height = height;
         this.speed = Util.fps / 2.5;
+        this.moveLeft = this.moveRight = false;
     }
 
     update() {
         this.speed = Util.fps / 2;
-        if (this.xEnd > this.x) {
-            this.x += this.speed;
-            if (this.x > this.xEnd) {
-                this.x = this.xEnd;
+
+
+        if (this.moveLeft || this.moveRight) {
+            this.speed /= 2;
+            if (this.moveLeft) {
+                this.x -= this.speed;
+                if (this.x < 0) {
+                    this.x = 0;
+                }
+            }
+            if (this.moveRight) {
+                this.x += this.speed;
+                if (this.x > game_W) {
+                    this.x = game_W;
+                }
             }
         } else {
-            this.x -= this.speed;
-            if (this.x < this.xEnd) {
-                this.x = this.xEnd;
+            if (this.xEnd > this.x) {
+                this.x += this.speed;
+                if (this.x > this.xEnd) {
+                    this.x = this.xEnd;
+                }
+            } else {
+                this.x -= this.speed;
+                if (this.x < this.xEnd) {
+                    this.x = this.xEnd;
+                }
             }
         }
     }
