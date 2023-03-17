@@ -24,7 +24,8 @@ class Egg {
         if (!this.visible)
             return;
         if (this.speed != 0)
-            this.speed = real_speed / Util.fps;
+            this.speed = this.real_speed / Util.fps;
+        console.log("speed: " + this.speed);
         this.y += (this.speed * (1 + Util.systemNumber * 1.2));
         if (!this.isWait()) {
             if (this.y >= game_H - this.height / 2) {
