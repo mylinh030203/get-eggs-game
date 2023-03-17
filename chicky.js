@@ -53,7 +53,7 @@ class Chicky {
 
     }
     addEgg(x, y) {
-        let egg = new Egg(this.game, x, y + this.height / 2, 30, 50);
+        let egg = new Egg(this.game, x, y + this.height / 2, 30, 40);
         this.eggs.push(egg);
     }
 
