@@ -203,7 +203,7 @@ class game {
 
         document.addEventListener("keydown", evt => {
             //space
-            // console.log(evt.keyCode);
+            console.log(evt.keyCode);
             if (evt.keyCode == 37) {
                 this.basket.moveLeft = true;
                 this.basket.moveRight = false;
@@ -214,8 +214,8 @@ class game {
             }
         });
 
-        document.addEventListener("keydown", evt => {
-            // console.log(evt.keyCode);
+        document.addEventListener("keyup", evt => {
+            console.log(evt.keyCode);
             if (evt.keyCode == 37) {
                 this.basket.moveLeft = false;
             }
