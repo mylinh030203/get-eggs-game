@@ -148,7 +148,7 @@ class game {
         }
     }
     drawRope() {
-        this.context.drawImage(ropeImage, 0, this.chickies[0].height, game_W, 20);
+        this.context.drawImage(ropeImage, 0, this.chickies[0].height, game_W, 50);
     }
 
     draw() {
