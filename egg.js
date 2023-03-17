@@ -9,8 +9,8 @@ class Egg {
         this.xEnd = this.x;
         this.width = width;
         this.height = height;
-        let real_speed = 180;
-        this.speed = real_speed / Util.fps;
+        this.real_speed = 180;
+        this.speed = this.real_speed / Util.fps;
         this.wait = 0;
         this.breakEgg = false;
         this.visible = true;
@@ -24,7 +24,7 @@ class Egg {
         if (!this.visible)
             return;
         if (this.speed != 0)
-            this.speed = Util.fps / 20;
+            this.speed = real_speed / Util.fps;
         this.y += (this.speed * (1 + Util.systemNumber * 1.2));
         if (!this.isWait()) {
             if (this.y >= game_H - this.height / 2) {
