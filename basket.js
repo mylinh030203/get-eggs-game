@@ -9,12 +9,12 @@ class Basket {
         this.xEnd = this.x;
         this.width = width;
         this.height = height;
-        this.speed = 1200/Util.fps;
+        this.speed = 1700/Util.fps;
         this.moveLeft = this.moveRight = false;
     }
 
     update() {
-        this.speed = 1200/Util.fps;
+        this.speed = 1700/Util.fps;
 
 
         if (this.moveLeft || this.moveRight) {
